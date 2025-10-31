@@ -13,7 +13,8 @@ export default function Page() {
   useEffect(() => {
     const fetchFeedback = async () => {
       try {
-        const res = await fetch('https://field.ton-domaine.fr/field/last');
+        const REST_URL = process.env.NEXT_PUBLIC_FIELD_REST_URL ?? 'https://field.ton-domaine.fr/field/last';
+        const res = await fetch(REST_URL);
         if (!res.ok) throw new Error('Erreur serveur');
         const data = await res.json();
         setResonance(data.resonance);

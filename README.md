@@ -70,10 +70,24 @@ Remarques :
 
 Le projet peut consommer deux endpoints externes :
 
-- API REST pour la dernière valeur : `https://field.ton-domaine.fr/field/last` (exemple présent dans `app/page.tsx`).
-- WebSocket pour données en temps réel : `wss://field.ton-domaine.fr/ws/field` (utilisé par `components/Splash.tsx` dans la version WS).
 
-Si vous avez un backend différent, mettez à jour les URL directement dans `app/page.tsx` ou dans `components/Splash.tsx`. Pour rendre ceci configurable, je peux extraire ces URLs dans des variables d'environnement (`.env.local`) si tu le souhaites.
+Si vous avez un backend différent, mettez à jour les URL directement dans `app/page.tsx` ou dans `components/Splash.tsx`.
+
+Pour rendre ceci configurable (recommandé), les variables suivantes sont utilisées par l'application et peuvent être définies dans un fichier `.env.local` à la racine du projet :
+
+- `NEXT_PUBLIC_FIELD_REST_URL` — URL REST publique qui retourne la dernière valeur du champ (JSON attendu avec `resonance` et `intent`).
+- `NEXT_PUBLIC_FIELD_WS_URL` — URL WebSocket (préfixe `wss://`) utilisée par le `Splash` pour les mises à jour en temps réel.
+
+Un fichier d'exemple a été ajouté : `.env.local.example`. Copiez-le en `.env.local` et ajustez les valeurs locales. Le fichier `.env.local` est ignoré par Git (ajouté à `.gitignore`) pour éviter de committer des valeurs spécifiques à l'environnement.
+
+Exemple minimal (dans `.env.local`):
+
+```
+NEXT_PUBLIC_FIELD_REST_URL=https://field.ton-domaine.fr/field/last
+NEXT_PUBLIC_FIELD_WS_URL=wss://cordee-authentic-productions.up.railway.app/ws/field
+```
+
+Ces variables sont préfixées par `NEXT_PUBLIC_` pour être accessibles côté client dans les composants React (Next.js inline les valeurs à la build).
 
 ## Déploiement (Vercel recommandé)
 

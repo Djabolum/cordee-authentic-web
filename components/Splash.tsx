@@ -28,7 +28,8 @@ export default function Splash({ onDone, resonance: initialRes }: { onDone?: () 
 		}
 
 		try {
-			const ws = new WebSocket('wss://cordee-authentic-productions.up.railway.app/ws/field');
+			const WS_URL = (process.env.NEXT_PUBLIC_FIELD_WS_URL as string) ?? 'wss://cordee-authentic-productions.up.railway.app/ws/field';
+			const ws = new WebSocket(WS_URL);
 			wsRef.current = ws;
 
 			ws.onopen = () => {
