@@ -44,3 +44,4 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     );
 }
 
+import { SpeedInsights } from "@vercel/speed-insights/next"
